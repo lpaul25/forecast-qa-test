@@ -1,0 +1,118 @@
+{
+	"info": {
+		"_postman_id": "00fa6951-d919-45e0-aca1-444806fb18ed",
+		"name": "Forecast",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Status and Performance",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Response time is less than 810ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(810);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://www.metaweather.com/en/api/location/1940345/2019/05/01",
+					"protocol": "https",
+					"host": [
+						"www",
+						"metaweather",
+						"com"
+					],
+					"path": [
+						"en",
+						"api",
+						"location",
+						"1940345",
+						"2019",
+						"05",
+						"01"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "String and JSON Check",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Body matches string\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"weather_state_name\");\r",
+							"    pm.expect(pm.response.text()).to.include(\"the_temp\");\r",
+							"    pm.expect(pm.response.text()).to.include(\"wind_direction\");\r",
+							"    pm.expect(pm.response.text()).to.include(\"humidity\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Check for abbr Value\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData[1].weather_state_abbr).to.eql(\"c\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Check for weather Value\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData[1].weather_state_name).to.eql(\"Clear\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Check for temp Value\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData[1].the_temp).to.eql(27.145);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Check for humidity Value\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData[1].humidity).to.eql(62);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://www.metaweather.com/en/api/location/1940345/2019/05/01",
+					"protocol": "https",
+					"host": [
+						"www",
+						"metaweather",
+						"com"
+					],
+					"path": [
+						"en",
+						"api",
+						"location",
+						"1940345",
+						"2019",
+						"05",
+						"01"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
